@@ -18,14 +18,6 @@ public class User {
 	@Column
 	private int senha;
 
-	private int hashEncoder(String pSenha){
-		int hash = 7;
-		for (int i = 0; i < pSenha.length(); i++) {
-		    hash = hash*31 + pSenha.charAt(i);
-		}
-		return hash;
-	}
-
 	public User() {
 
 	}
@@ -34,17 +26,22 @@ public class User {
 		String[] mailAt = pUser.split("@");
 
 		if(mailAt.length != 2){
-			System.out.println("Email Invalido.");
+			//System.out.println("1");
 			return false;
 		}else{
+			
+			if(mailAt[0].equals("")){
+				//System.out.println("2");
+				return false;
+			}
+			
 			String[] domain = mailAt[1].split("\\.");
 
 			if(domain.length < 2){
-				System.out.println("Email Invalido.");
+				//System.out.println("3");
 				return false;
 			}
 		}
-		System.out.println("Email Válido.");
 		return true;
 	}
 
@@ -77,7 +74,7 @@ public class User {
 	}
 
 	public void setSenha(String senha) {
-		this.senha = hashEncoder(senha);
+		this.senha = senha.hashCode();
 	}
 
 

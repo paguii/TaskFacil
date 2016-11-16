@@ -3,11 +3,15 @@ package taskfacil.controllers;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import taskfacil.models.User;
 
 public class TaskFacilCadastrarController implements Initializable{
@@ -19,39 +23,49 @@ public class TaskFacilCadastrarController implements Initializable{
 	@FXML
 	private TextField txtEmail;
 	@FXML
-	private TextField txtSenha;
-
-	private Stage dialogStage;
-	private boolean buttonCadastrarClicked = false;
-	private User usuario;
+	private PasswordField txtSenha;
+	
+	private User newUser;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 
 	}
-
-	public Stage getDialogStage() {
-		return dialogStage;
+	
+	@FXML
+	public void registerNewUser(){
+		if(validateCadastro()){
+			
+			EntityManagerFactory factory = Persistence.createEntityManagerFactory("TaskFacil");
+			EntityManager manager = factory.createEntityManager();
+			
+			newUser.setName(txtNome.getText());
+			newUser.setEmail(txtEmail.getText());
+			newUser.setSenha(txtSenha.getText());
+			
+			manager.getTransaction().begin();
+			manager.persist(newUser);
+			manager.getTransaction().commit();
+			
+			manager.close();
+		}
 	}
 
-	public void setDialogStage(Stage dialogStage) {
-		this.dialogStage = dialogStage;
+	private boolean validateCadastro(){
+		if(txtNome.getLength() < 5){
+			System.out.println("Nome muito curto.");
+			return false;
+		}
+		
+//		if(newUser.isEmail(txtEmail.getText())){
+//			System.out.println("Email Certo.");
+//			return false;
+//		}
+		
+		if(txtSenha.getLength() < 4){
+			System.out.println("Senha Curta.");
+			return false;
+		}
+		return true;
 	}
-
-	public boolean isButtonCadastrarClicked() {
-		return buttonCadastrarClicked;
-	}
-
-	public void setButtonCadastrarClicked(boolean buttonConfirmarClicked) {
-		this.buttonCadastrarClicked = buttonConfirmarClicked;
-	}
-
-	public User getUsuario() {
-		return usuario;
-	}
-
-	public void setUsuario(User usuario) {
-		this.usuario = usuario;
-	}
-
 }
