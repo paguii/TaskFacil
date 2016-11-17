@@ -26,8 +26,8 @@
             <Label layoutX="317.0" layoutY="130.0" text="Senha:" />
             <TextField fx:id="txtUser" layoutX="317.0" layoutY="83.0" prefHeight="27.0" prefWidth="244.0" promptText="E-mail" />
             <Button fx:id="btnLogin" layoutX="448.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSignIn" prefHeight="27.0" prefWidth="113.0" text="Entrar" />
-            <Button fx:id="btnCadastrar" layoutX="88.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSignUp" prefHeight="27.0" prefWidth="128.0" text="Cadastre-se" />
-            <PasswordField layoutX="317.0" layoutY="149.0" prefHeight="25.0" prefWidth="244.0" promptText="Senha" />
+            <Button fx:id="btnCadastrar" layoutX="78.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSignUp" prefHeight="27.0" prefWidth="128.0" text="Cadastre-se" />
+            <PasswordField fx:id="txtSenhaLogin" layoutX="317.0" layoutY="149.0" prefHeight="25.0" prefWidth="244.0" promptText="Senha" />
          </children>
       </AnchorPane>
    </children>

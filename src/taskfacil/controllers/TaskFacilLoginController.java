@@ -12,8 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
 import javafx.stage.Stage;
+import taskfacil.dao.UserDAO;
 import taskfacil.models.User;
 
 public class TaskFacilLoginController implements Initializable{
@@ -25,13 +25,11 @@ public class TaskFacilLoginController implements Initializable{
 	@FXML
 	private TextField txtUser;
 	@FXML
-	private PasswordField txtSenha;
+	private PasswordField txtSenhaLogin;
 
-	private User userLogin;
-	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		
 	}
 
 	@FXML
@@ -42,14 +40,37 @@ public class TaskFacilLoginController implements Initializable{
 		
 		stage.setScene(scene);
 		stage.setTitle("TaskFacil - Cadastro");
-		stage.show();
+		stage.showAndWait();
 	}
 	
 	@FXML
 	public void handlerSignIn() throws IOException{
 		String email = txtUser.getText();
-		String senha = txtSenha.getText();
+		String senha = txtSenhaLogin.getText();
+		
+		if(validateLogin(email)){
+			UserDAO userDao = new UserDAO();
+			
+			User userLogin = new User();
+			userLogin.setEmail(email);
+			userLogin.setSenha(senha);
+			
+			userDao.authUser(userLogin);
+		} 
+	}
 	
+	private boolean validateLogin(String pEmail){
+		if(!User.isEmail(pEmail)){
+			System.out.println("Usuário Invalido.");
+			return false;
+		}
+		
+		if(txtSenhaLogin.getLength() < 4){
+			System.out.println("Senha Inválida.");
+			return false;
+		}
+		
+		return true;
 	}
 	
 }

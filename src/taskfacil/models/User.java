@@ -5,24 +5,32 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 @Entity
+@Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
-
+	
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
+	
 	@Column
 	private String name;
-	@Column
+	
+	@Column 
 	private String email;
+	
 	@Column
 	private int senha;
 
+
+	
 	public User() {
 
 	}
 
-	public boolean isEmail(String pUser){
+	public static boolean isEmail(String pUser){
 		String[] mailAt = pUser.split("@");
 
 		if(mailAt.length != 2){

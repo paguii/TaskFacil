@@ -4,14 +4,18 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+
+import taskfacil.ex.DuplicatedValues;
+import taskfacil.db.FactoryEntityManager;
+import taskfacil.ex.DuplicatedValues;
 import taskfacil.models.User;
 
 public class TaskFacilCadastrarController implements Initializable{
@@ -34,33 +38,49 @@ public class TaskFacilCadastrarController implements Initializable{
 	
 	@FXML
 	public void registerNewUser(){
-		if(validateCadastro()){
+		newUser = new User();
+		newUser.setName(txtNome.getText());
+		newUser.setEmail(txtEmail.getText());
+		newUser.setSenha(txtSenha.getText());
+		
+		if(validateCadastro(newUser)){
+			EntityManager manager = FactoryEntityManager.getEntityManager();
 			
-			EntityManagerFactory factory = Persistence.createEntityManagerFactory("TaskFacil");
-			EntityManager manager = factory.createEntityManager();
-			
-			newUser.setName(txtNome.getText());
-			newUser.setEmail(txtEmail.getText());
-			newUser.setSenha(txtSenha.getText());
-			
-			manager.getTransaction().begin();
-			manager.persist(newUser);
-			manager.getTransaction().commit();
+			try {
+				manager.getTransaction().begin();
+				manager.persist(newUser);
+				manager.getTransaction().commit();
+			} catch (DuplicatedValues e) {
+				
+			}
 			
 			manager.close();
+			
+			Alert alert = new Alert(AlertType.INFORMATION);
+			alert.setTitle("Informação");
+			alert.setHeaderText("Cadastro de novo usuário");
+			alert.setContentText("Seu usuário foi cadastrado com sucesso.");
+
+			alert.showAndWait();
+			
+			txtNome.clear();
+			txtEmail.clear();
+			txtSenha.clear();
 		}
 	}
 
-	private boolean validateCadastro(){
+	private boolean validateCadastro(User pNewUser){
 		if(txtNome.getLength() < 5){
 			System.out.println("Nome muito curto.");
 			return false;
 		}
 		
-//		if(newUser.isEmail(txtEmail.getText())){
-//			System.out.println("Email Certo.");
-//			return false;
-//		}
+		if(!User.isEmail(txtEmail.getText())){
+			System.out.println("Email Invalido.");
+			return false;
+		} else{
+
+		}
 		
 		if(txtSenha.getLength() < 4){
 			System.out.println("Senha Curta.");
