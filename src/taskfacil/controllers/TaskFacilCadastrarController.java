@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceException;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -33,8 +34,8 @@ public class TaskFacilCadastrarController implements Initializable{
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle("Informação");
-		alert.setHeaderText("Cadastro de novo usuário");
+		alert.setTitle("InformaÃ§Ã£o");
+		alert.setHeaderText("Cadastro de novo usuÃ¡rio");
 	}
 
 	@FXML
@@ -47,26 +48,36 @@ public class TaskFacilCadastrarController implements Initializable{
 		if(validateCadastro(newUser)){
 			EntityManager manager = FactoryEntityManager.getEntityManager();
 
-			manager.getTransaction().begin();
-			manager.persist(newUser);
-			manager.getTransaction().commit();
-			manager.close();
+			try {
+				manager.getTransaction().begin();
+				manager.persist(newUser);
+				manager.getTransaction().commit();
+				manager.close();
+				
+				alert.setContentText("Seu usuÃ¡rio foi cadastrado com sucesso.");
+				alert.showAndWait();
 
-			alert.setContentText("Seu usuário foi cadastrado com sucesso.");
-			alert.showAndWait();
+				txtNome.clear();
+				txtEmail.clear();
+				txtSenha.clear();
 
-			txtNome.clear();
-			txtEmail.clear();
-			txtSenha.clear();
+				Stage stage  = (Stage) btnCadastrar.getScene().getWindow();
+				stage.close();
+			} catch (PersistenceException e) {
+				alert.setAlertType(AlertType.ERROR);
+				alert.setContentText("O e-mail inserido já foi cadastrado");
+				alert.showAndWait();
+				
+				alert.setAlertType(AlertType.INFORMATION);
+			}
 
-			Stage stage  = (Stage) btnCadastrar.getScene().getWindow();
-			stage.close();
+
 		}
 	}
 
 	private boolean validateCadastro(User pNewUser){
 		if(txtNome.getLength() < 5){
-			alert.setContentText("Nome digitado é muito curto.");
+			alert.setContentText("Nome digitado Ã© muito curto.");
 			alert.showAndWait();
 
 			System.out.println("Nome muito curto.");
@@ -74,7 +85,7 @@ public class TaskFacilCadastrarController implements Initializable{
 		}
 
 		if(!User.isEmail(txtEmail.getText())){
-			alert.setContentText("Digite um email válido.\nExemplo: samuka@batmacampineiro.com");
+			alert.setContentText("Digite um email vÃ¡lido.\nExemplo: samuka@batmacampineiro.com");
 			alert.showAndWait();
 			System.out.println("Email Invalido.");
 			return false;
