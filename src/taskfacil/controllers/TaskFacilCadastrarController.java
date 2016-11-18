@@ -12,10 +12,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-
-import taskfacil.ex.DuplicatedValues;
+import javafx.stage.Stage;
 import taskfacil.db.FactoryEntityManager;
-import taskfacil.ex.DuplicatedValues;
 import taskfacil.models.User;
 
 public class TaskFacilCadastrarController implements Initializable{
@@ -28,61 +26,65 @@ public class TaskFacilCadastrarController implements Initializable{
 	private TextField txtEmail;
 	@FXML
 	private PasswordField txtSenha;
-	
+
 	private User newUser;
+	private Alert alert;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
+		alert = new Alert(AlertType.INFORMATION);
+		alert.setTitle("Informa√ß√£o");
+		alert.setHeaderText("Cadastro de novo usu√°rio");
 	}
-	
+
 	@FXML
 	public void registerNewUser(){
 		newUser = new User();
 		newUser.setName(txtNome.getText());
 		newUser.setEmail(txtEmail.getText());
 		newUser.setSenha(txtSenha.getText());
-		
+
 		if(validateCadastro(newUser)){
 			EntityManager manager = FactoryEntityManager.getEntityManager();
-			
-			try {
-				manager.getTransaction().begin();
-				manager.persist(newUser);
-				manager.getTransaction().commit();
-			} catch (DuplicatedValues e) {
-				
-			}
-			
-			manager.close();
-			
-			Alert alert = new Alert(AlertType.INFORMATION);
-			alert.setTitle("InformaÁ„o");
-			alert.setHeaderText("Cadastro de novo usu·rio");
-			alert.setContentText("Seu usu·rio foi cadastrado com sucesso.");
 
+			manager.getTransaction().begin();
+			manager.persist(newUser);
+			manager.getTransaction().commit();
+			manager.close();
+
+			alert.setContentText("Seu usu√°rio foi cadastrado com sucesso.");
 			alert.showAndWait();
-			
+
 			txtNome.clear();
 			txtEmail.clear();
 			txtSenha.clear();
+
+			Stage stage  = (Stage) btnCadastrar.getScene().getWindow();
+			stage.close();
 		}
 	}
 
 	private boolean validateCadastro(User pNewUser){
 		if(txtNome.getLength() < 5){
+			alert.setContentText("Nome digitado √© muito curto.");
+			alert.showAndWait();
+
 			System.out.println("Nome muito curto.");
 			return false;
 		}
-		
+
 		if(!User.isEmail(txtEmail.getText())){
+			alert.setContentText("Digite um email v√°lido.\nExemplo: samuka@batmacampineiro.com");
+			alert.showAndWait();
 			System.out.println("Email Invalido.");
 			return false;
 		} else{
 
 		}
-		
+
 		if(txtSenha.getLength() < 4){
+			alert.setContentText("Senha deve conter pelo menos 4 caracteres.\nExemplo: 1234");
+			alert.showAndWait();
 			System.out.println("Senha Curta.");
 			return false;
 		}

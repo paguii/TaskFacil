@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskfacil.controllers.TaskFacilLoginController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="285.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskfacil.controllers.TaskFacilLoginController">
    <children>
       <AnchorPane prefHeight="285.0" prefWidth="600.0">
          <children>
@@ -25,9 +25,10 @@
             <Label layoutX="317.0" layoutY="66.0" text="Usuário:" />
             <Label layoutX="317.0" layoutY="130.0" text="Senha:" />
             <TextField fx:id="txtUser" layoutX="317.0" layoutY="83.0" prefHeight="27.0" prefWidth="244.0" promptText="E-mail" />
-            <Button fx:id="btnLogin" layoutX="448.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSignIn" prefHeight="27.0" prefWidth="113.0" text="Entrar" />
-            <Button fx:id="btnCadastrar" layoutX="78.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSignUp" prefHeight="27.0" prefWidth="128.0" text="Cadastre-se" />
             <PasswordField fx:id="txtSenhaLogin" layoutX="317.0" layoutY="149.0" prefHeight="25.0" prefWidth="244.0" promptText="Senha" />
+            <Label fx:id="lblErro" layoutX="317.0" layoutY="34.0" text="Mensagem de Erro" textFill="#ff0909" visible="false" />
+            <Button fx:id="btnLogin" defaultButton="true" layoutX="448.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSignIn" prefHeight="27.0" prefWidth="113.0" text="Entrar" />
+            <Button fx:id="btnCadastrar" layoutX="87.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSignUp" prefHeight="27.0" prefWidth="128.0" text="Cadastre-se" />
          </children>
       </AnchorPane>
    </children>

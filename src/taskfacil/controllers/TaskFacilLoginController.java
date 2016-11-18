@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
@@ -26,10 +27,12 @@ public class TaskFacilLoginController implements Initializable{
 	private TextField txtUser;
 	@FXML
 	private PasswordField txtSenhaLogin;
+	@FXML
+	private Label lblErro;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		
+
 	}
 
 	@FXML
@@ -37,40 +40,51 @@ public class TaskFacilLoginController implements Initializable{
 		Parent root = FXMLLoader.load(getClass().getResource("/taskfacil/views/TaskFacilCadastrar.fxml"));
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
-		
+
 		stage.setScene(scene);
 		stage.setTitle("TaskFacil - Cadastro");
 		stage.showAndWait();
 	}
-	
+
 	@FXML
 	public void handlerSignIn() throws IOException{
+		lblErro.setVisible(false);
+
 		String email = txtUser.getText();
 		String senha = txtSenhaLogin.getText();
-		
+
 		if(validateLogin(email)){
 			UserDAO userDao = new UserDAO();
-			
+
 			User userLogin = new User();
 			userLogin.setEmail(email);
 			userLogin.setSenha(senha);
-			
-			userDao.authUser(userLogin);
-		} 
+
+			userLogin = userDao.authUser(userLogin);
+
+			if(userLogin == null){
+				lblErro.setText("E-mail ou senha inv√°lidos.");
+				lblErro.setVisible(true);
+
+				txtSenhaLogin.clear();
+			}else{
+				System.out.println("logou");
+			}
+		}
 	}
-	
+
 	private boolean validateLogin(String pEmail){
 		if(!User.isEmail(pEmail)){
-			System.out.println("Usu·rio Invalido.");
+			System.out.println("Usu√°rio Invalido.");
 			return false;
 		}
-		
+
 		if(txtSenhaLogin.getLength() < 4){
-			System.out.println("Senha Inv·lida.");
+			System.out.println("Senha Inv√°lida.");
 			return false;
 		}
-		
+
 		return true;
 	}
-	
+
 }

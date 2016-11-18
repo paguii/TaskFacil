@@ -11,21 +11,19 @@ import javax.persistence.UniqueConstraint;
 @Entity
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
-	
+
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
+
 	@Column
 	private String name;
-	
-	@Column 
+
+	@Column
 	private String email;
-	
+
 	@Column
 	private int senha;
 
-
-	
 	public User() {
 
 	}
@@ -37,12 +35,12 @@ public class User {
 			//System.out.println("1");
 			return false;
 		}else{
-			
+
 			if(mailAt[0].equals("")){
 				//System.out.println("2");
 				return false;
 			}
-			
+
 			String[] domain = mailAt[1].split("\\.");
 
 			if(domain.length < 2){
