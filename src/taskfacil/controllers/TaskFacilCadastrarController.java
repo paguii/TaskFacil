@@ -43,7 +43,7 @@ public class TaskFacilCadastrarController implements Initializable{
 		newUser = new User();
 		newUser.setName(txtNome.getText());
 		newUser.setEmail(txtEmail.getText());
-		newUser.setSenha(txtSenha.getText());
+		newUser.setPassword(txtSenha.getText());
 
 		if(validateCadastro(newUser)){
 			EntityManager manager = FactoryEntityManager.getEntityManager();

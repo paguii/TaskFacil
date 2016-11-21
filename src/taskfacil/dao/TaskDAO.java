@@ -6,25 +6,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
 import taskfacil.db.FactoryEntityManager;
+import taskfacil.models.Task;
 import taskfacil.models.User;
 
-public class UserDAO {
+public class TaskDAO {
 	private EntityManager manager;
 
-	public UserDAO() {
+	public TaskDAO() {
 		manager = FactoryEntityManager.getEntityManager();
 	}
-
-	public User authUser(User pUser){
-		Query query = manager.createQuery("SELECT u FROM User u WHERE email = '" + pUser.getEmail() + "' AND password = " + pUser.getPassword());
-		List<User> list = query.getResultList();
+	
+	public List<Task> getUserTasks(User pUser){
+		Query query = manager.createQuery("SELECT t FROM Task t WHERE dono = " + pUser.getId());
+		List<Task> list = query.getResultList();
 
 		if(list.isEmpty()){
 			return null;
 		}else{
-			User user = list.get(0);
-			System.out.println(user.getName());
-			return user;
+			return list;
 		}
 	}
 }

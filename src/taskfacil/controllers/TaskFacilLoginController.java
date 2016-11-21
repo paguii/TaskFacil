@@ -39,11 +39,11 @@ public class TaskFacilLoginController implements Initializable{
 	public void handlerSignUp() throws IOException{
 		Parent root = FXMLLoader.load(getClass().getResource("/taskfacil/views/TaskFacilCadastrar.fxml"));
 		Scene scene = new Scene(root);
-		Stage stage = new Stage();
+		Stage stageSignUp = new Stage();
 
-		stage.setScene(scene);
-		stage.setTitle("TaskFacil - Cadastro");
-		stage.showAndWait();
+		stageSignUp.setScene(scene);
+		stageSignUp.setTitle("TaskFacil - Cadastro");
+		stageSignUp.showAndWait();
 	}
 
 	@FXML
@@ -58,7 +58,7 @@ public class TaskFacilLoginController implements Initializable{
 
 			User userLogin = new User();
 			userLogin.setEmail(email);
-			userLogin.setSenha(senha);
+			userLogin.setPassword(senha);
 
 			userLogin = userDao.authUser(userLogin);
 
@@ -68,7 +68,19 @@ public class TaskFacilLoginController implements Initializable{
 
 				txtSenhaLogin.clear();
 			}else{
-				System.out.println("logou");
+				Stage stage  = (Stage) btnLogin.getScene().getWindow();
+				stage.close();
+				
+				Parent root = FXMLLoader.load(getClass().getResource("/taskfacil/views/TaskFacilPortal.fxml"));
+				Scene scene = new Scene(root);
+				Stage stagePortal = new Stage();
+				
+				TaskFacilPortalController controller = FXMLLoader.load(getClass().getResource("/taskfacil/views/TaskFacilPortal.fxml"));
+				controller.setUser(userLogin);
+				
+				stagePortal.setScene(scene);
+				stagePortal.setTitle("TaskFacil - Portal");
+				stagePortal.show();
 			}
 		}
 	}

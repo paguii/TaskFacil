@@ -14,6 +14,8 @@ public class Task {
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 	@Column
+	private int owner;
+	@Column
 	private String title;
 	@Column
 	private String description;

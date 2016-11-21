@@ -22,7 +22,7 @@ public class User {
 	private String email;
 
 	@Column
-	private int senha;
+	private int password;
 
 	public User() {
 
@@ -75,12 +75,12 @@ public class User {
 		this.email = email;
 	}
 
-	public int getSenha() {
-		return senha;
+	public int getPassword() {
+		return password;
 	}
 
-	public void setSenha(String senha) {
-		this.senha = senha.hashCode();
+	public void setPassword(String password) {
+		this.password = password.hashCode();
 	}
 
 
