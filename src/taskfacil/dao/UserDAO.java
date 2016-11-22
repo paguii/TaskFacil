@@ -27,4 +27,12 @@ public class UserDAO {
 			return user;
 		}
 	}
+	
+	public void insert(User newUser) {
+		manager.getTransaction().begin();
+		manager.persist(newUser);
+		manager.getTransaction().commit();
+		manager.close();
+	}
+
 }

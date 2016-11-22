@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskfacil.controllers.TaskFacilPortalController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8.0.45" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskfacil.controllers.TaskFacilPortalController">
    <children>
       <AnchorPane prefHeight="600.0" prefWidth="900.0">
          <children>
@@ -25,7 +25,7 @@
               <menus>
                 <Menu mnemonicParsing="false" text="TaskFacil">
                   <items>
-                        <MenuItem mnemonicParsing="false" text="Adicionar Tarefa" />
+                        <MenuItem fx:id="menuItemAdicionarTask" mnemonicParsing="false" onAction="#handlerMenuItemAddTask" text="Adicionar Tarefa" />
                     <MenuItem mnemonicParsing="false" text="Sair do Aplicativo" />
                   </items>
                 </Menu>

@@ -14,6 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import taskfacil.dao.UserDAO;
 import taskfacil.db.FactoryEntityManager;
 import taskfacil.models.User;
 
@@ -30,9 +31,12 @@ public class TaskFacilCadastrarController implements Initializable{
 
 	private User newUser;
 	private Alert alert;
+	private UserDAO newUserDAO;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		newUserDAO = new UserDAO();
+		
 		alert = new Alert(AlertType.INFORMATION);
 		alert.setTitle("InformaÃ§Ã£o");
 		alert.setHeaderText("Cadastro de novo usuÃ¡rio");
@@ -49,10 +53,7 @@ public class TaskFacilCadastrarController implements Initializable{
 			EntityManager manager = FactoryEntityManager.getEntityManager();
 
 			try {
-				manager.getTransaction().begin();
-				manager.persist(newUser);
-				manager.getTransaction().commit();
-				manager.close();
+				newUserDAO.insert(newUser);
 				
 				alert.setContentText("Seu usuÃ¡rio foi cadastrado com sucesso.");
 				alert.showAndWait();
@@ -74,6 +75,8 @@ public class TaskFacilCadastrarController implements Initializable{
 
 		}
 	}
+
+
 
 	private boolean validateCadastro(User pNewUser){
 		if(txtNome.getLength() < 5){
