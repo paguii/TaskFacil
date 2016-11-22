@@ -7,9 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.Type;
 
 @Entity
+@Table(name = "Task")
 public class Task {
+
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
@@ -20,7 +26,11 @@ public class Task {
 	@Column
 	private String description;
 	@Column
+	private String local;
+	@Column
+	@Type(type="date")
 	private Date date;
+
 
 	public Task() {
 
@@ -58,5 +68,11 @@ public class Task {
 		this.date = date;
 	}
 
+	public void setLocal(String local){
+		this.local = local;
+	}
 
+	public String getLocal(){
+		return local;
+	}
 }

@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import taskfacil.dao.UserDAO;
 import taskfacil.models.User;
@@ -68,17 +69,22 @@ public class TaskFacilLoginController implements Initializable{
 
 				txtSenhaLogin.clear();
 			}else{
+				FXMLLoader loader = new FXMLLoader();
+
 				Stage stage  = (Stage) btnLogin.getScene().getWindow();
 				stage.close();
-				
-				Parent root = FXMLLoader.load(getClass().getResource("/taskfacil/views/TaskFacilPortal.fxml"));
-				Scene scene = new Scene(root);
+
+				loader.setLocation(TaskFacilPortalController.class.getResource("/taskfacil/views/TaskFacilPortal.fxml"));
+				VBox page = (VBox) loader.load();
+
+				Scene scene = new Scene(page);
+
 				Stage stagePortal = new Stage();
-				
-				TaskFacilPortalController controller = FXMLLoader.load(getClass().getResource("/taskfacil/views/TaskFacilPortal.fxml"));
-				controller.setUser(userLogin);
-				
 				stagePortal.setScene(scene);
+
+				TaskFacilPortalController controller = loader.getController();
+				controller.initData(userLogin);
+
 				stagePortal.setTitle("TaskFacil - Portal");
 				stagePortal.show();
 			}
