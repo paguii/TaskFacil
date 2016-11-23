@@ -16,8 +16,20 @@ public class TaskDAO {
 		manager = FactoryEntityManager.getEntityManager();
 	}
 
+//	public List<Task> getUserTasks(User pUser){
+//		Query query = manager.createQuery("SELECT t FROM Task t WHERE owner = " + pUser.getId());
+//		List<Task> list = query.getResultList();
+//
+//		if(list.isEmpty()){
+//			return null;
+//		}else{
+//			System.out.println(list.get(0).getId());
+//			return list;
+//		}
+//	}
+	
 	public List<Task> getUserTasks(User pUser){
-		Query query = manager.createQuery("SELECT t FROM Task t WHERE owner = " + pUser.getId());
+		Query query = manager.createQuery("SELECT t FROM Task t where t.owner=:owner" ).setParameter("owner", pUser.getId());
 		List<Task> list = query.getResultList();
 
 		if(list.isEmpty()){

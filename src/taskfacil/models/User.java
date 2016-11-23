@@ -1,5 +1,7 @@
 package taskfacil.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,7 +14,7 @@ import javax.persistence.UniqueConstraint;
 @Table(name = "User", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User {
 
-	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
+	@Id @Column @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	@Column
@@ -27,7 +29,7 @@ public class User {
 	public User() {
 
 	}
-
+	
 	public static boolean isEmail(String pUser){
 		String[] mailAt = pUser.split("@");
 
@@ -36,7 +38,7 @@ public class User {
 			return false;
 		}else{
 
-			if(mailAt[0].equals("")){
+			if(mailAt[0].equals("") || mailAt[1].equals("")){
 				//System.out.println("2");
 				return false;
 			}
