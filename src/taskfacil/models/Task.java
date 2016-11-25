@@ -1,18 +1,15 @@
 package taskfacil.models;
 
 import java.util.Date;
+import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
@@ -24,12 +21,10 @@ public class Task {
 
 	@Id @GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-	
-	
-	@OneToOne
-	@JoinColumn(name="id")
+
+	@ManyToOne
 	private User owner;
-	
+
 	@Column
 	private String title;
 	@Column
@@ -40,13 +35,22 @@ public class Task {
 	@Type(type="date")
 	private Date date;
 
+	@ManyToMany
+	private List<User> collaborators;
 
 	public Task() {
 
 	}
-	
-	
-	
+
+	public List<User> getCollaborators() {
+		if(collaborators.isEmpty()) return null;
+		else return this.collaborators;
+	}
+
+	public void setCollaborators(List<User> collaborators) {
+		this.collaborators = collaborators;
+	}
+
 	public User getOwner() {
 		return owner;
 	}

@@ -1,7 +1,5 @@
 package taskfacil.models;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,7 +27,7 @@ public class User {
 	public User() {
 
 	}
-	
+
 	public static boolean isEmail(String pUser){
 		String[] mailAt = pUser.split("@");
 
