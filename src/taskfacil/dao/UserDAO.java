@@ -27,12 +27,23 @@ public class UserDAO {
 			return user;
 		}
 	}
-	
+
 	public void insert(User newUser) {
 		manager.getTransaction().begin();
 		manager.persist(newUser);
 		manager.getTransaction().commit();
 		manager.close();
+	}
+
+	public User getCollaborator(User pUser){
+		Query query = manager.createQuery("SELECT u FROM User u WHERE email = '" + pUser.getEmail() + "'");
+		List<User> list = query.getResultList();
+		if(list.size() > 0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+
 	}
 
 }

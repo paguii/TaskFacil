@@ -18,6 +18,7 @@ public class TaskDAO {
 
 	public List<Task> getUserTasks(User pUser){
 		Query query = manager.createQuery("SELECT t FROM Task t where owner.id = " + pUser.getId());
+
 		List<Task> list = query.getResultList();
 
 		if(list.isEmpty()){
@@ -27,9 +28,21 @@ public class TaskDAO {
 		}
 	}
 
+	public void updateTask(Task pTask){
+		manager.getTransaction().begin();
+		manager.merge(pTask);
+		manager.getTransaction().commit();
+	}
+
 	public void insertTask(Task pTask){
 		manager.getTransaction().begin();
 		manager.persist(pTask);
+		manager.getTransaction().commit();
+	}
+
+	public void deleteTask(Task pTask){
+		manager.getTransaction().begin();
+		manager.remove(pTask);
 		manager.getTransaction().commit();
 	}
 }

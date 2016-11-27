@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskfacil.controllers.TaskFacilAdicionarTaskController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="530.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="taskfacil.controllers.TaskFacilEditarTaskController">
    <children>
       <AnchorPane prefHeight="380.0" prefWidth="530.0">
          <children>
@@ -27,8 +27,8 @@
             <TextField fx:id="txtEditLocalTask" layoutX="300.0" layoutY="73.0" prefHeight="25.0" prefWidth="174.0" promptText="Local da Tarefa" />
             <DatePicker fx:id="dpEditDataTask" layoutX="59.0" layoutY="128.0" promptText="Data Prevista" />
             <TextArea fx:id="txtEditAreaDescricaoTask" layoutX="59.0" layoutY="181.0" prefHeight="131.0" prefWidth="414.0" promptText="Descrição de sua tarefa" />
-            <Button fx:id="btnEditarTask" layoutX="393.0" layoutY="333.0" mnemonicParsing="false" onAction="#handlerAddTask" prefHeight="25.0" prefWidth="81.0" text="Editar" />
-            <Text layoutX="184.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tarefa: codTarefa" textAlignment="RIGHT" wrappingWidth="331.8134765625" />
+            <Button fx:id="btnEditarTask" layoutX="393.0" layoutY="333.0" mnemonicParsing="false" onAction="#handlerEditTask" prefHeight="25.0" prefWidth="81.0" text="Editar" />
+            <Text fx:id="lblCodTarefa" layoutX="184.0" layoutY="28.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tarefa: codTarefa" textAlignment="RIGHT" wrappingWidth="331.8134765625" />
          </children>
       </AnchorPane>
    </children>

@@ -98,4 +98,8 @@ public class Task {
 	public String getLocal(){
 		return local;
 	}
+
+	public void addCollab(User pUser){
+		this.collaborators.add(pUser);
+	}
 }

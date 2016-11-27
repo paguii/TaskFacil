@@ -1,5 +1,8 @@
 package taskfacil.models;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +26,8 @@ public class User {
 
 	@Column
 	private int password;
+
+	private static final Pattern VALIDACAO_EMAIL = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 	public User() {
 
@@ -49,6 +54,11 @@ public class User {
 			}
 		}
 		return true;
+	}
+
+	public static boolean isEmail2(String pUser) {
+        Matcher matcher = VALIDACAO_EMAIL .matcher(pUser);
+        return matcher.find();
 	}
 
 	public int getId() {

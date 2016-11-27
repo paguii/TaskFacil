@@ -92,13 +92,15 @@ public class TaskFacilLoginController implements Initializable{
 	}
 
 	private boolean validateLogin(String pEmail){
-		if(!User.isEmail(pEmail)){
-			System.out.println("Usuário Invalido.");
+		if(!User.isEmail2(pEmail)){
+			this.lblErro.setText("Digite um email válido.");
+			this.lblErro.setVisible(true);
 			return false;
 		}
 
 		if(txtSenhaLogin.getLength() < 4){
-			System.out.println("Senha Inválida.");
+			this.lblErro.setText("Senha deve conter pelo menos 4 dígitos.");
+			this.lblErro.setVisible(true);
 			return false;
 		}
 

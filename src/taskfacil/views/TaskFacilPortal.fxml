@@ -26,7 +26,7 @@
                   <items>
                         <MenuItem fx:id="menuItemAdicionarTask" mnemonicParsing="false" onAction="#handlerMenuItemAddTask" text="Adicionar Tarefa" />
                         <MenuItem fx:id="menuItemEditarTask" mnemonicParsing="false" onAction="#handlerMenuItemEditTask" text="Editar Tarefa" />
-                    <MenuItem fx:id="menuItemFechar" mnemonicParsing="false" text="Sair do Aplicativo" />
+                    <MenuItem fx:id="menuItemFechar" mnemonicParsing="false" onAction="#handlerMenuItemFechar" text="Sair do Aplicativo" />
                   </items>
                 </Menu>
               </menus>
@@ -44,14 +44,14 @@
                   <Font size="20.0" />
                </font>
             </Label>
-            <Button fx:id="btnFinalizarTask" layoutX="760.0" layoutY="544.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="97.0" text="Finalizar">
+            <Button fx:id="btnFinalizarTask" layoutX="760.0" layoutY="544.0" mnemonicParsing="false" onAction="#handlerBtnFinalizar" prefHeight="30.0" prefWidth="97.0" text="Finalizar">
                <effect>
                   <ColorAdjust hue="0.7" saturation="0.36" />
                </effect>
                <font>
                   <Font size="14.0" />
                </font></Button>
-            <Button fx:id="btnCancelarTask" layoutX="606.0" layoutY="544.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="97.0" text="Cancelar">
+            <Button fx:id="btnCancelarTask" layoutX="606.0" layoutY="544.0" mnemonicParsing="false" onAction="#handlerBtnCancelar" prefHeight="30.0" prefWidth="97.0" text="Cancelar">
                <effect>
                   <ColorAdjust saturation="0.28" />
                </effect>
